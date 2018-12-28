@@ -16,7 +16,7 @@ class Modal extends HTMLElement {
         }
         #modal {
           position: fixed;
-          top: 15vh;
+          top: 10vh;
           left: 25%;
           width: 50%;
           z-index: 100;
@@ -28,6 +28,10 @@ class Modal extends HTMLElement {
           flex-direction: column;
           justify-content: space-between;
           display: none;
+          opacity: 0;
+          transition: all .5s ease-out;
+        }
+        :host([opened]) #modal {
         }
         header {
           padding: 1rem;
@@ -70,8 +74,11 @@ class Modal extends HTMLElement {
         </section>
       </div>
     `
+    let returnFocus;
+    const backdrop = this.shadowRoot.querySelector('#backdrop');
     const cancelButton = this.shadowRoot.querySelector('#btn-cancel');
     const confirmButton = this.shadowRoot.querySelector('#btn-confirm');
+    backdrop.addEventListener('click', this._cancel.bind(this));
     cancelButton.addEventListener('click', this._cancel.bind(this));
     confirmButton.addEventListener('click', this._confirm.bind(this));
   }
@@ -81,11 +88,15 @@ class Modal extends HTMLElement {
       if (this.hasAttribute('opened')){
         this.shadowRoot.querySelector('#backdrop').style.display = 'block';
         this.shadowRoot.querySelector('#modal').style.display = 'block';
+        this.shadowRoot.querySelector('#modal').style.top = '15vh';
+        this.shadowRoot.querySelector('#modal').style.opacity = '1';
         this.shadowRoot.querySelector('#modal').style.poinerEvents = 'all';
         document.querySelector('main').setAttribute('aria-hidden', 'true');
       } else {
         this.shadowRoot.querySelector('#backdrop').style.display = 'none';
         this.shadowRoot.querySelector('#modal').style.display = 'none';
+        this.shadowRoot.querySelector('#modal').style.top = '10vh';
+        this.shadowRoot.querySelector('#modal').style.opacity = '0';
         this.shadowRoot.querySelector('#modal').style.poinerEvents = 'none';
         document.querySelector('main').setAttribute('aria-hidden', 'false');
       }
@@ -96,13 +107,20 @@ class Modal extends HTMLElement {
     return ['opened'];
   }
   
-  open() {
+  open(event) {
     this.setAttribute('opened', '');
+    this.returnFocus = event.target;
+    this.shadowRoot.querySelector('#modal-heading').focus();
   }
   hide() {
     if(this.hasAttribute('opened')){
       this.removeAttribute('opened');
     }
+    if( this.returnFocus !== null){
+      console.log('return to: '+this.returnFocus);
+      this.returnFocus.focus();
+      this.returnFocus = null;
+      }
   }
 
   _cancel(event) {

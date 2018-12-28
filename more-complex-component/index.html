@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>More Complex Web Component</title>
+  <script src="modal.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+  <uc-modal>
+    <h2 slot="title">Please Confirm</h2>
+    <!-- <h3 slot="subtitle">This is a subtitle</h3> -->
+    <p>This the body of the modal.</p>
+    <ul>
+        <li>Some list item</li>
+        <li>Some other list item</li>
+      </ul>
+  </uc-modal>
+  <main role="main">
+      <p>Please confirm your choice.</p>
+      <button>Show details & confirm</button>
+  </main>
+
+  <script>
+    const confirmButton = document.querySelector('button');
+    const ucModal = document.querySelector('uc-modal');
+    ucModal.addEventListener('confirm', (event) => {
+      console.log(event);
+    });
+    ucModal.addEventListener('cancel', (event) => {
+      console.log(event);
+    });
+
+    confirmButton.addEventListener('click', event => {
+      // ucModal.setAttribute('opened', '');
+      ucModal.open();
+    });
+  </script>
+</body>
+</html>

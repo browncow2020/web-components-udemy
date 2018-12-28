@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Web Components - Basics Assignment</title>
+    <script src="info-box.js"></script>
+    <style>
+      #info-box {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <button>Show</button> -->
+    <!-- <p id="info-box">More infos!</p> -->
+    <ba-info-box is-visible="true">This is the info box content</ba-info-box>
+    <ba-info-box is-visible="false">This is a totally different info box content</ba-info-box>
+
+    <!-- <script> 
+      // const button = document.querySelector('button');
+      // const infoEl = document.querySelector('p');
+
+      // let isHidden = true;
+
+      // button.addEventListener('click', () => {
+      //   if (isHidden) {
+      //     infoEl.style.display = 'block';
+      //     button.textContent = 'Hide';
+      //     isHidden = false;
+      //   } else {
+      //     infoEl.style.display = 'none';
+      //     button.textContent = 'Show';
+      //     isHidden = true;
+      //   }
+      // });
+    </script> -->
+  </body>
+</html>
